@@ -293,7 +293,7 @@ if args_dict["cache_prerun"] is False:
 
     start_time = str(datetime.datetime.now())
     # load the commandline parameters
-    from SMILESMerge.user_vars import load_in_commandline_parameters
+    from smilesmerge.user_vars import load_in_commandline_parameters
 
     vars, printout = load_in_commandline_parameters(INPUTS)
 
@@ -311,7 +311,7 @@ if args_dict["cache_prerun"] is False:
     # Run SMILESMerge. Import move here to prevent EOF in MPI mode. importing
     # files before the Parallelizer class is established in MPI mode can have
     # errors
-    import SMILESMerge.SMILESMerge_main_execute as SMILESMergeMainExecute
+    import smilesmerge.SMILESMerge_main_execute as SMILESMergeMainExecute
 
     SMILESMergeMainExecute.main_execute(vars)
 
@@ -328,6 +328,6 @@ if args_dict["cache_prerun"] is False:
 
 
 else:  # cache prerun. This is necessary to prevent race conditions in mpi mode.
-    import SMILESMerge.user_vars
-    import SMILESMerge.SMILESMerge_main_execute as SMILESMergeMainExecute
-    import SMILESMerge.operators.convert_files.gypsum_dl.gypsum_dl.Parallelizer
+    import smilesmerge.user_vars
+    import smilesmerge.SMILESMerge_main_execute as SMILESMergeMainExecute
+    import smilesmerge.operators.convert_files.gypsum_dl.gypsum_dl.Parallelizer

@@ -1,0 +1,21 @@
+# To install dependencies.
+# This is based on a Linux environment.
+
+# Need package managers conda will install both pip and conda so go with conda
+# Download conda
+bash ~/Downloads/Anaconda3-2019.10-Linux-x86_64.sh
+
+
+# Get python dependencies
+conda install -c conda-forge rdkit
+conda install numpy
+conda install scipy
+pip install func-timeout
+# We can skip mpi4py unless we are making a server docker
+
+cd ..
+# Download git
+sudo apt install git
+
+# Download AutoGrow 4 via git
+git clone https://github.com/Jacob-Spiegel/SMILESMerge.git

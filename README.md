@@ -40,6 +40,7 @@ SMILESMerge requires the following dependencies:
 - scipy
 - numpy
 - mpi4py (optional but required for MPI multiprocessing)
+- Gooey (optional but required for GUI interface)
 
 SMILESMerge was tested on a Python 3.7.7 environment on a Ubuntu OS. A docker image is provided for users with unsupported operating systems, such as Windows.
 
