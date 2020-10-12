@@ -37,42 +37,10 @@ def main_execute(vars):
     sys.stdout.flush()
 
     if new_gen_ligands_list is None:
-        raise ValueError("Population failed to make enough mutants or crossovers... \
+        raise ValueError("Population failed to make enough crossovers... \
                             Errors could include not enough diversity, too few seeds to the generation, \
-                            the seed mols are unable to cross-over due to lack of similarity,\
-                            or all of the seed lack functional groups for performing reactions.")
-
-        # @JAKE Add back in clean up files!!! And file compression
-        # # Delete all temporary files; Skip if in Debugging Mode
-        # if vars["debug_mode"] is False:
-        #     print("Deleting temporary files and directories")
-        #     files_to_del = []
-        #     folders_to_del = ["{}{}3D_SDFs{}".format(current_generation_dir, os.sep, os.sep), "{}{}3D_SDFs{}log{}".format(current_generation_dir, os.sep, os.sep, os.sep), "{}{}gypsum_submission_files{}".format(current_generation_dir, os.sep, os.sep)]
-        #     for folder in folders_to_del:
-        #         if os.path.exists(folder) is False:
-        #             continue
-        #         files_to_del.extend(glob.glob(folder+"*"))
-
-        #     job_input = tuple([tuple([x]) for x in files_to_del if os.path.isfile(x) is True])
-        #     vars["parallelizer"].run(job_input, delete_temporary_files_and_folders)
-        #     # Delete Folders in an ordered manor incase folders are nested
-        #     for i in range(0, len(folders_to_del)):
-        #         delete_temporary_files_and_folders(folders_to_del[i])
-
-
-        # if vars["reduce_files_sizes"] is True:
-        #     # Reduce the files in the PDBs folder to a single compiled file.
-        #     # This reduces the data size And makes it easier to transfer the
-        #     # data
-        #     pdbs_folder = "{}{}PDBs{}".format(current_generation_dir, os.sep, os.sep)
-        #     if os.path.exists(pdbs_folder) is True:
-        #         concatenate_files.run_concatenation(vars["parallelizer"], pdbs_folder)
-        #     else:
-        #         print("\nNo PDB folder to concatenate and compress. This is likely generation 0 seeded with a Ranked .smi file.\n")
-        print("")
-        print("Finished generation ", current_generation_number)
-
-        sys.stdout.flush()
+                            setting number_of_crossovers too high, or the seed mols \
+                            are unable to cross-over due to lack of similarity.")
 
     sys.stdout.flush()
 #

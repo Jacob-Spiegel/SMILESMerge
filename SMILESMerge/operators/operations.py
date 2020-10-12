@@ -1,5 +1,5 @@
 """
-Populates an AutoGrow generation via mutation and crossover.
+Populates an AutoGrow generation via crossover.
 Also filters and converts SMILES to 3d SDFS.
 """
 import __future__
@@ -16,7 +16,6 @@ import rdkit.Chem as Chem
 rdkit.RDLogger.DisableLog("rdApp.*")
 
 import SMILESMerge.operators.filter.execute_filters as Filter
-import SMILESMerge.operators.mutation.execute_mutations as Mutation
 import SMILESMerge.operators.crossover.execute_crossover as execute_crossover
 import SMILESMerge.operators.convert_files.conversion_to_3d as conversion_to_3d
 import SMILESMerge.operators.convert_files.gypsum_dl.gypsum_dl.MolObjectHandling as MOH
@@ -83,7 +82,7 @@ def get_usable_format(infile):
 #############
 def populate_generation(vars):
     """
-    This will run all of the mutations, crossovers, and filters for a single
+    This will run all of the crossovers, and filters for a single
         generation. Populates a new generation of ligands.
 
     Inputs:
@@ -99,11 +98,10 @@ def populate_generation(vars):
     """
     number_of_processors = int(vars["number_of_processors"])
 
-    # Determine which generation it is and how many mutations and crossovers
+    # Determine which generation it is and how many crossovers
     # to make
 
     num_crossovers = vars["number_of_crossovers"]
-    num_mutations = vars["number_of_mutants"]
 
     # Get the Source compound list. This list is the full population from
     # either the previous generations or if its Generation 1 than the its the
@@ -112,21 +110,7 @@ def populate_generation(vars):
     # Name and SMILES string will be printed.
 
     # Total Population size of this generation
-    total_num_desired_new_ligands = num_crossovers + num_mutations
-
-    print("MAKE MUTATIONS")
-    # Making Mutations
-
-    # Package user vars specifying the Reaction library to use for mutation
-    rxn_library_variables = [
-        vars["rxn_library"],
-        vars["rxn_library_file"],
-        vars["function_group_library"],
-        vars["complementary_mol_directory"],
-    ]
-
-    # List of SMILES from mutation
-    new_mutation_smiles_list = []
+    total_num_desired_new_ligands = num_crossovers
 
     seed_list = get_complete_list_prev_gen_or_source_compounds(vars)
     # Save seed list
@@ -135,73 +119,6 @@ def populate_generation(vars):
         "",
         "Seed_List",
     )
-
-    seed_list_mutations = copy.deepcopy(seed_list)
-
-    # Make all the required ligands by mutations
-    while len(new_mutation_smiles_list) < num_mutations:
-        sys.stdout.flush()
-
-        num_mutants_to_make = num_mutations - len(new_mutation_smiles_list)
-
-        # Make all mutants
-        new_mutants = Mutation.make_mutants(
-            vars,
-            1,
-            number_of_processors,
-            num_mutants_to_make,
-            seed_list_mutations,
-            new_mutation_smiles_list,
-            rxn_library_variables,
-        )
-        if new_mutants is None:
-            # try once more
-            new_mutants = Mutation.make_mutants(
-                vars,
-                1,
-                number_of_processors,
-                num_mutants_to_make,
-                seed_list_mutations,
-                new_mutation_smiles_list,
-                rxn_library_variables,
-            )
-
-        if new_mutants is None:
-            break
-
-        # Remove Nones:
-        new_mutants = [x for x in new_mutants if x is not None]
-
-        for i in new_mutants:
-            new_mutation_smiles_list.append(i)
-            if len(new_mutation_smiles_list) == num_mutations:
-                break
-    sys.stdout.flush()
-
-    # save new_mutation_smiles_list
-    save_ligand_list(
-        vars["output_directory"],
-        new_mutation_smiles_list,
-        "Chosen_Mutants",
-    )
-
-    if (
-            new_mutation_smiles_list is None
-            or len(new_mutation_smiles_list) < num_mutations
-    ):
-        print("")
-        print("")
-        print("We needed to make {} ligands through Mutation".format(num_mutations))
-        print(
-            "We only made {} ligands through Mutation".format(
-                len(new_mutation_smiles_list)
-            )
-        )
-        print("")
-        print("")
-        raise Exception("Mutation failed to make enough new ligands.")
-
-    print("FINISHED MAKING MUTATIONS")
 
     # Get starting compounds to seed Crossovers
     seed_list_crossovers = copy.deepcopy(seed_list)
@@ -276,14 +193,9 @@ def populate_generation(vars):
     sys.stdout.flush()
 
 
-    # make a list of all the ligands from mutations, crossovers, and from the
-    # last generation
+    # make a list of all the ligands from crossovers
     new_generation_smiles_list = []
     full_generation_smiles_list = []
-    for i in new_mutation_smiles_list:
-        new_generation_smiles_list.append(i)
-        full_generation_smiles_list.append(i)
-
     for i in new_crossover_smiles_list:
         new_generation_smiles_list.append(i)
         full_generation_smiles_list.append(i)
@@ -292,11 +204,10 @@ def populate_generation(vars):
         print("We needed ", total_num_desired_new_ligands)
         print("We made ", len(full_generation_smiles_list))
         print(
-            "population failed to make enough mutants or crossovers... \
+            "population failed to make enough crossovers... \
             Errors could include not enough diversity, too few seeds to \
             the generation, the seed mols are unable to cross-over due \
-            to lack of similariy, or all of the seed lack functional groups \
-            for performing reactions"
+            to lack of similariy"
         )
         return None, None, None
 
@@ -513,7 +424,7 @@ def get_complete_list_prev_gen_or_source_compounds(vars):
 
 def make_seed_list(vars, source_compounds_list):
     """
-    Get the starting compound list for running the Mutation and Crossovers
+    Get the starting compound list for running the Crossovers
 
 
     Inputs:

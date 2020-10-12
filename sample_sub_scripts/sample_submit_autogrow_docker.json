@@ -5,7 +5,5 @@
     "number_of_processors": -1,
     "max_variants_per_compound": 1,
     "filter_source_compounds": false,
-    "LipinskiLenientFilter": true,
-    "debug_mode": false,
-    "rxn_library": "all_rxns"
+    "LipinskiLenientFilter": true
 }

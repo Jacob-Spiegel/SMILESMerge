@@ -457,10 +457,6 @@ def define_defaults():
     vars["pka_precision"] = 1.0
     vars["gypsum_timeout_limit"] = 10
 
-    # Other vars
-    vars["debug_mode"] = False
-    vars["reduce_files_sizes"] = False
-    
     # Check Bash Timeout function (There's a difference between MacOS and linux)
     # Linux uses timeout while MacOS uses gtimeout
     timeout_option = determine_bash_timeout_vs_gtimeout()

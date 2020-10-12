@@ -7,7 +7,5 @@
     "max_variants_per_compound": 1,
     "filter_source_compounds": false,
     "LipinskiLenientFilter": true,
-    "gypsum_timeout_limit": 1,
-    "debug_mode": false,
-    "rxn_library": "all_rxns"
+    "gypsum_timeout_limit": 1
 }
