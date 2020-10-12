@@ -8,6 +8,7 @@ import os
 import random
 import copy
 import sys
+import glob
 
 import rdkit
 import rdkit.Chem as Chem
@@ -227,9 +228,40 @@ def populate_generation(vars):
     # .smi.2.sdf
     if vars["convert_to_3D"] is True:
         conversion_to_3d.convert_to_3d(vars, smiles_to_convert_file, new_gen_folder_path)
+        get_list_of_3D_SMILES(vars, new_generation_smiles_list)
+
     sys.stdout.flush()
 
     return smiles_to_convert_file, full_generation_smiles_list
+
+def get_list_of_3D_SMILES(vars, new_generation_smiles_list):
+    """
+    This will obtain and save the list of SMILES in the same order as 
+    found in NEW_SMILES.smi but with 3D variant information from PDBS.
+
+    Will save to vars["output_directory"] +  "New_SMILES_After_3D_Conversion.smi"
+
+    Inputs:
+    :param dict vars: a dictionary of all user variables
+    :param list new_generation_smiles_list: list of all 1/2D SMILES
+    """
+    list_of_3D_SMILES = []
+    PDBs_dir = vars["output_directory"] + os.sep + "PDBs" + os.sep
+    for mol_info in new_generation_smiles_list:
+        short_id = mol_info[1].split(")")[-1]
+        pdb_files = glob.glob(PDBs_dir + short_id + "__*.pdb")
+        pdb_files.sort()
+        for pdb_pose in pdb_files:
+            base_info = os.path.basename(pdb_pose).replace(".pdb","")
+            with open(pdb_pose) as f:
+                SMILES_string = f.readline().replace("\n","")
+                SMILES_string = SMILES_string.replace("REMARK Final SMILES string: ", "")
+            list_of_3D_SMILES.append("\t".join([SMILES_string, mol_info[1], base_info]))
+
+    # Save all info to a .smi file
+    list_of_3D_SMILES = "\n".join(list_of_3D_SMILES)
+    with open(vars["output_directory"] +  "New_SMILES_After_3D_Conversion.smi", "w") as f:
+        f.write(list_of_3D_SMILES)
 
 #############
 # Get seeds
@@ -454,7 +486,6 @@ def save_generation_smi(output_directory,
     This function saves a list of newly generated population of ligands as an
     .smi file. .smi file column 1 is the SMILES string and column 2 is its
     smile ID
-
 
     Inputs:
     :param dict output_directory: the directory of the run to save the

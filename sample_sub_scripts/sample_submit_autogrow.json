@@ -2,10 +2,10 @@
     "source_compound_file": "./source_compounds/naphthalene_smiles.smi",
     "root_output_folder": "./Outputfolder/",
     "convert_to_3D": true,
-    "number_of_crossovers": 3000,
+    "number_of_crossovers": 10,
     "number_of_processors": -1,
-    "max_variants_per_compound": 1,
+    "max_variants_per_compound": 3,
     "filter_source_compounds": false,
     "No_Filters": true,
-    "gypsum_timeout_limit": 1
+    "gypsum_timeout_limit": 10
 }

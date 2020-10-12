@@ -271,18 +271,6 @@ PARSER.add_argument(
     the gypsum_timeout_limit. Default gypsum_timeout_limit is 15 seconds",
 )
 
-# Reduce files down. This compiles and compresses the files in the PDBs folder
-# makes data transfer quicker, but requires running the
-# file_concatenation_and_compression.py in the Utility script folder to
-# separate these files out for readability.
-PARSER.add_argument(
-    "--reduce_files_sizes",
-    choices=[True, False, "True", "False", "true", "false"],
-    default=fTrue,
-    help="Run this combines all files in the PDBs folder into a \
-    single text file. Useful when data needs to be transferred.",
-)
-
 # mpi mode pre-Run so there are python cache files without EOF Errors
 PARSER.add_argument(
     "--cache_prerun",
@@ -329,7 +317,7 @@ if args_dict["cache_prerun"] is False:
 
     # Print completion message
 
-    printout = "\nSMILESMerge run started at:   {}\nSMILESMerge.format(start_time)
+    printout = "\nSMILESMerge run started at:   {}\nSMILESMerge ".format(start_time)
     printout = printout + "run completed at: {}\n".format(str(datetime.datetime.now()))
     print(printout)
 
