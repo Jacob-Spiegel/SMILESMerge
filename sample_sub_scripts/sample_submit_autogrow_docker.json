@@ -1,0 +1,12 @@
+{
+    "source_compound_file": "../source_compounds/naphthalene_smiles.smi",
+    "root_output_folder": "./Outputfolder/",
+    "number_of_mutants": 3,
+    "number_of_crossovers": 3,
+    "number_of_processors": -1,
+    "max_variants_per_compound": 1,
+    "filter_source_compounds": false,
+    "LipinskiLenientFilter": true,
+    "debug_mode": false,
+    "rxn_library": "all_rxns"
+}
