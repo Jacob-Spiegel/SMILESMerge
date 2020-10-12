@@ -1,11 +1,11 @@
 # !/usr/bin/env python
 
-"""This is the executable file for Autogrow 4.0.2. This script should come
+"""This is the executable file for SMILESMerge. This script should come
 first. It should obtain and verify all the parameters work. This than should
 pass these parameters variables to the main execution function titled
 SMILESMergeMainExecute.py found in MainFunctions
 
-If you use AutoGrow 4.0.2 in your research, please cite the following reference:
+If you use SMILESMerge in your research, please cite the following reference:
 Spiegel, J.O., Durrant, J.D. AutoGrow4: an open-source genetic algorithm
 for de novo drug design and lead optimization. J Cheminform 12, 25 (2020).
 [doi: 10.1186/s13321-020-00429-4]
@@ -20,7 +20,7 @@ import datetime
 # Imports of files are burried below to prevent EOF issues in MPI mode
 
 ################
-# Run AutoGrow #
+# Run SMILESMerge #
 ################
 
 PARSER = argparse.ArgumentParser()
@@ -40,7 +40,7 @@ PARSER.add_argument(
     "-d",
     action="store_true",
     default=False,
-    help="Run Autogrow in Debug mode. This keeps all \
+    help="Run SMILESMerge in Debug mode. This keeps all \
     temporary files and adds extra print statements.",
 )
 
@@ -278,7 +278,7 @@ PARSER.add_argument(
 PARSER.add_argument(
     "--reduce_files_sizes",
     choices=[True, False, "True", "False", "true", "false"],
-    default=True,
+    default=fTrue,
     help="Run this combines all files in the PDBs folder into a \
     single text file. Useful when data needs to be transferred.",
 )
@@ -329,11 +329,11 @@ if args_dict["cache_prerun"] is False:
 
     # Print completion message
 
-    printout = "\nAutoGrow4 run started at:   {}\nAutoGrow4 ".format(start_time)
+    printout = "\nSMILESMerge run started at:   {}\nSMILESMerge.format(start_time)
     printout = printout + "run completed at: {}\n".format(str(datetime.datetime.now()))
     print(printout)
 
-    print("AUTOGROW FINISHED")
+    print("SMILESMerge FINISHED")
 
     # # kill mpi workers
     vars["parallelizer"].end(vars["multithread_mode"])

@@ -22,11 +22,11 @@ def program_info():
     Returns:
     :returns: str program_output: a string for the print of the program information
     """
-    program_output = "\nAutoGrow Version 4.0.2\n"
+    program_output = "\nSMILESMerge Version 1.0.0\n"
     program_output = program_output + " ================== \n"
     program_output = (
         program_output
-        + "If you use AutoGrow 4.0.2 in your research, please cite the following reference:\n"
+        + "If you use SMILESMerge 1.0.0 in your research, please cite the following reference:\n"
     )
     program_output = program_output + "Spiegel, J.O., Durrant, J.D. \n"
     program_output = program_output + "AutoGrow4: an open-source genetic algorithm "
@@ -47,7 +47,7 @@ def save_vars_as_json(vars):
     It saves all variables except the parallelizer class object.
 
     It saves the file to the output_directory + "vars.json"
-        -If AutoGrow has been run multiple times for the same directory it
+        -If SMILESMerge has been run multiple times for the same directory it
         will save the new vars file as append a number to the file name
         starting with 2. The util scripts will only look at the original "vars.json"
             ie) output_directory + "vars_2.json"
@@ -180,7 +180,7 @@ def check_for_required_inputs(input_params):
 
     if len(missing_variables) != 0:
         printout = "\nRequired variables are missing from the input. A description \
-            of each of these can be found by running python ./RunAutogrow -h"
+            of each of these can be found by running python ./RunSMILESMerge -h"
         printout = printout + "\nThe following required variables are missing: "
         for variable in missing_variables:
             printout = printout + "\n\t" + variable
@@ -265,7 +265,7 @@ def determine_bash_timeout_vs_gtimeout():
     except:
         raise Exception(
             "Something is very wrong. This OS may not be supported \
-            by Autogrow or you may need to execute through Bash."
+            by SMILESMerge or you may need to execute through Bash."
         )
     if timeout_result == 0:
         timeout_option = "gtimeout"
@@ -277,7 +277,7 @@ def determine_bash_timeout_vs_gtimeout():
     except:
         raise Exception(
             "Something is very wrong. This OS may not be supported by \
-            Autogrow or you may need to execute through Bash."
+            SMILESMerge or you may need to execute through Bash."
         )
 
     if timeout_result == 0:
@@ -309,7 +309,7 @@ def check_dependencies():
     if timeout_option not in ["timeout", "gtimeout"]:
         raise Exception(
             "Something is very wrong. This OS may not be supported by \
-        Autogrow or you may need to execute through Bash."
+        SMILESMerge or you may need to execute through Bash."
         )
 
     try:
@@ -465,7 +465,7 @@ def define_defaults():
     else:
         raise Exception(
             "Something is very wrong. This OS may not be supported by \
-             Autogrow or you may need to execute through Bash."
+             SMILESMerge or you may need to execute through Bash."
         )
 
     return vars
@@ -566,7 +566,7 @@ def check_value_types(vars, argv):
                             )
                             printout = (
                                 printout
-                                + "Please check Autogrow documentation using -h"
+                                + "Please check SMILESMerge documentation using -h"
                             )
                             raise IOError(printout)
                     except:
@@ -578,7 +578,7 @@ def check_value_types(vars, argv):
                             type(vars[key])
                         )
                         printout = (
-                            printout + "Please check Autogrow documentation using -h"
+                            printout + "Please check SMILESMerge documentation using -h"
                         )
                         raise IOError(printout)
                 else:
@@ -587,7 +587,7 @@ def check_value_types(vars, argv):
                     printout = printout + "\t Should be type={}\n\t".format(
                         type(vars[key])
                     )
-                    printout = printout + "Please check Autogrow documentation using -h"
+                    printout = printout + "Please check SMILESMerge documentation using -h"
                     raise IOError(printout)
             elif type(vars[key]) == bool:
                 if argv[key] is None:
@@ -609,7 +609,7 @@ def check_value_types(vars, argv):
                             type(vars[key])
                         )
                         printout = (
-                            printout + "Please check Autogrow documentation using -h"
+                            printout + "Please check SMILESMerge documentation using -h"
                         )
                         raise IOError(printout)
                 else:
@@ -618,7 +618,7 @@ def check_value_types(vars, argv):
                     printout = printout + "\t Should be type={}\n\t".format(
                         type(vars[key])
                     )
-                    printout = printout + "Please check Autogrow documentation using -h"
+                    printout = printout + "Please check SMILESMerge documentation using -h"
                     raise IOError(printout)
     return vars, argv
 
@@ -655,7 +655,7 @@ def load_in_commandline_parameters(argv):
 
     vars = multiprocess_handling(vars)
 
-    printout = "(RE)STARTING AUTOGROW 4.0: " + str(datetime.datetime.now())
+    printout = "(RE)STARTING SMILESMerge 1.0: " + str(datetime.datetime.now())
     printout = printout + program_info()
     printout = (
         printout + "\nUse the -h tag to get detailed help regarding program usage.\n"
@@ -700,7 +700,7 @@ def load_in_commandline_parameters(argv):
 
     # Save variables in vars dict to a .json file for later usage and reference
     # It saves the file to the output_directory + "vars.json"
-    # -If AutoGrow has been run multiple times for the same directory it
+    # -If SMILESMerge has been run multiple times for the same directory it
     # will save the new vars file as append a number to the file name
     # starting with 2. The util scripts will only look at the original "vars.json"
     #     ie) output_directory + "vars_2.json"
@@ -923,7 +923,7 @@ def handle_alternative_filters(vars, filter_list):
                     )
                 )
                 print(
-                    "AutoGrow will need to be restarted once all custom scripts \
+                    "SMILESMerge will need to be restarted once all custom scripts \
                     have been copied to their required location."
                 )
                 print(
@@ -941,10 +941,10 @@ def handle_alternative_filters(vars, filter_list):
                 "\n########################################"
                 + "#####################################"
             )
-            print("AutoGrow has incorporated the custom files into"
+            print("SMILESMerge has incorporated the custom files into"
                   + " the filter Module.")
             print(
-                " AutoGrow needs to be restarted and should now "
+                " SMILESMerge needs to be restarted and should now "
                 + "be able to run custom scripts."
             )
             print("Please ensure you unit test this code properly before incorporating.")

@@ -1,5 +1,5 @@
 """
-Populates an AutoGrow generation via crossover.
+Populates an SMILESMerge generation via crossover.
 Also filters and converts SMILES to 3d SDFS.
 """
 import __future__
@@ -78,7 +78,7 @@ def get_usable_format(infile):
 
 
 #############
-# Main run Autogrow operators to make a generation
+# Main run SMILESMerge operators to make a generation
 #############
 def populate_generation(vars):
     """
@@ -116,7 +116,7 @@ def populate_generation(vars):
     # Save seed list
     save_ligand_list(
         vars["output_directory"],
-        "",
+        seed_list,
         "Seed_List",
     )
 
