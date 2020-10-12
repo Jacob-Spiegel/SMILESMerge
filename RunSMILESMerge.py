@@ -98,44 +98,6 @@ PARSER.add_argument(
     (if False) SmilesMerge is 10x faster when deprotanated",
 )
 
-
-# Mutation Settings
-PARSER.add_argument(
-    "--rxn_library",
-    choices=["click_chem_rxns", "robust_rxns", "all_rxns", "Custom"],
-    default="all_rxns",
-    help="This set of reactions to be used in Mutation. \
-    If Custom, one must also provide rxn_file Path and function_group_library path",
-)
-PARSER.add_argument(
-    "--rxn_library_file",
-    type=str,
-    default="",
-    help="This PATH to a Custom json file of SMARTS reactions to use for Mutation. \
-    Only provide if using the Custom option for rxn_library.",
-)
-PARSER.add_argument(
-    "--function_group_library",
-    type=str,
-    default="",
-    help="This PATH for a dictionary of functional groups to be used for Mutation. \
-    Only provide if using the Custom option for rxn_library.",
-)
-PARSER.add_argument(
-    "--complementary_mol_directory",
-    type=str,
-    default="",
-    help="This PATH to the directory containing all the molecules being used \
-    to react with. The directory should contain .smi files contain SMILES of \
-    molecules containing the functional group represented by that file. Each file \
-    should be named with the same title as the functional groups described in \
-    rxn_library_file & function_group_library +.smi \
-    All Functional groups specified function_group_library must have its \
-    own .smi file. We recommend you filter these dictionaries prior to Autogrow \
-    for the Drug-likeliness and size filters you will Run Autogrow with.",
-)
-
-
 # processors and multithread mode
 PARSER.add_argument(
     "--number_of_processors",
@@ -161,13 +123,6 @@ PARSER.add_argument(
     default=10,
     help="The number of ligands which will be created via crossover in each \
     generation besides the first",
-)
-PARSER.add_argument(
-    "--number_of_mutants",
-    type=int,
-    default=10,
-    help="The number of ligands which will be created via mutation in each \
-    generation besides the first.",
 )
 
 ####### FILTER VARIABLES

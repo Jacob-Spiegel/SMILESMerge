@@ -325,7 +325,7 @@ def make_crossovers(vars, generation_num, number_of_processors,
     if len(new_ligands_list) < num_crossovers_to_make:
         return None
 
-    # once the number of mutants we need is generated return the list
+    # once the number of crossovers we need is generated return the list
     return new_ligands_list
 
 
