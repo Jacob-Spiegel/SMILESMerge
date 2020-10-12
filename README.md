@@ -4,6 +4,8 @@ SMILESMerge is a cheminformatic, Python program for that crosses two parent liga
 
 SMILESMerge accepts a list of SMILES (in .smi format) and will attempt to produce a user defined number of unique children SMILES. SMILESMerge also allows users to apply chemical property filters. Additionally, SMILESMerge options the automated conversion of the children from 1/2D SMILES to 3D representations (PDB and 3D-SDF) using Gypsum-DL.
 
+![Image of crossover](https://github.com/Jacob-Spiegel/SMILESMerge/Figures/crossover.png)
+
 # Acknowledgment and Citing
 
 Much of this code is take directly and/or adapted from AutoGrow4. This program also relies on Gypsum-DL and Dimorphite-DL for ligand handling and multiprocessing. Please remember to cite the following papers:
@@ -23,3 +25,4 @@ Much of this code is take directly and/or adapted from AutoGrow4. This program a
 ## AutoGrow4 Dimorphite-DL:
 
 - Ropp, P.J., Kaminsky, J.C., Yablonski, S. et al. Dimorphite-DL: an open-source program for enumerating the ionization states of drug-like small molecules. J Cheminform 11, 14 (2019). https://doi.org/10.1186/s13321-019-0336-9
+
