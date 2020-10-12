@@ -291,9 +291,7 @@ def run_parser():
     ARGS_DICT = vars(PARSER.parse_args())
     return ARGS_DICT
 
-
-
-ARGS_DICT = run_parser()
+args_dict = run_parser()
 
 # copying args_dict so we can delete out of while iterating through the
 # original args_dict

@@ -220,11 +220,9 @@ cd /PATH_TO/SMILESMerge/
 python RunSMILESMerge.py \
     --source_compound_file /SMILESMerge/source_compounds/naphthalene_smiles.smi \
     --root_output_folder /PATH_TO/output_directory/ \
-    --number_of_mutants 50 \
     --number_of_crossovers 50 \
     --number_of_processors -1 \
     --LipinskiLenientFilter \
-    --rxn_library ClickChem \
     --max_variants_per_compound 5 \
     >  /PATH_TO/OUTPUT/text_file.txt 2>  /PATH_TO/OUTPUT/text_errormessage_file.txt
 ```
@@ -255,8 +253,8 @@ An explanation of every parameter can be retrieved by running:
 python /SMILESMerge/RunSMILESMerge.py --help
 ```
 
-Custom options such as custom filters, reaction libraries,
-etc., are described in other parts of the tutorial. 
+Custom options such as custom filters,
+are described in other parts of the tutorial. 
 Details for preparing source compound files are
 provided directly below.
 
@@ -344,8 +342,6 @@ Many of the SMILESMerge functions can be supplemented with custom options. These
 functions include:
 
 1. Custom Ligand Filters ***
-2. Custom Reaction libraries
-3. Custom complementary molecules libraries
 
 *** Indicates that when using this feature, the code is automatically copied
 into the appropriate SMILESMerge directory. This is only done once, so please
@@ -362,7 +358,7 @@ I/O.
 
 This feature allows the user to incorporate custom python scripts for
 filtering ligands. These filters are applied to ligands after they are created
-by mutation/crossover but before Gypsum-DL conversion to 3D.
+by crossover but before Gypsum-DL conversion to 3D.
 
 This custom code will be copied to the directory:
 `/SMILESMerge/smilesmerge/operators/filter/filter_classes/filter_children_classes/`
@@ -415,289 +411,6 @@ python RunSMILESMerge.py \
 
 Submit in terminal: `python RunSMILESMerge.py -j
 /PATH_TO/json_file_with_variable.json`
-
-### 2. Custom Reaction libraries
-
-SMILESMerge assumes all custom scripts have been unittested. Please ensure all
-reactions and libraries are accurate before using this option.
-
-Unlike the other custom options, reaction libraries are stored as
-human-readable json dictionaries. In contrast, all other custom options use
-inherited class scripts. These json files do not need to be incorporated into
-SMILESMerge and thus require no restarting or copying of files.
-
-Reaction Libraries are stored as .json files and are dictionaries of
-dictionaries. The outer dictionary uses the reaction's name as the key and the
-sub-dictionary containing all information about the reaction as the item.
-
-We provide a script to check complementary and Reaction libraries molecule
-libraries at: `/SMILESMerge/accessory_scripts/test_complementary_mol_library.py`
-
-A tutorial is provided in the Accessory Scripts section of this document
-
-#### Three Requirements For Custom Reaction Libraries
-
-Custom reaction libraries require three pieces of information, each explained
-below.
-
-##### Reaction Library .json File Contains Reactions and All Reaction Information
-
-Each sub-dictionary must contain the following information:
-
-- "reaction_name": "Name of the reaction",
-- "example_rxn_product": "SMILES of Product using example
-  example_rxn_reactants",
-- "example_rxn_reactants": ["SMILES of example reactant_1"],
-  - if two or more reactants in reaction ["SMILES of example
-    reactant_1","SMILES of example reactant_2",...]
-- "functional_groups": ["functional group name reactant_1"],
-  - if two or more reactants in reaction ["functional group name
-    reactant_1","functional group name reactant_2",...]
-- "group_smarts": ["functional_group SMARTS reactant_1"],
-  - if two or more reactants in reaction ["functional_group SMARTS
-    reactant_1","functional_group SMARTS reactant_2",...]
-- "num_reactants": 1,
-  - (int) if 2 or more reactants change accordingly
-- "reaction_string": "reaction string ie
-  reactant_1_smart.reactant_2_smart>>product_SMART",
-  - This uses Daylights SMARTS reaction notation
-- "RXN_NUM": 3
-  - (int) a unique reaction number. This is used in naming products of
-    mutation. For example, a ligand named Gen_1_Mutant_72_867328 is a ligand
-    from generation 1 created by the 72 reaction in a reaction library
-
-Simplified Example of a Reaction library (from click_chem_rxns_library.json):
-
-```json
-{
-    "1_Epoxide_and_Alcohol":     {
-        "reaction_name": "1_Epoxide_and_Alcohol",
-        "example_rxn_product": "CC(C)(C)C(O)(OCCCF)C(C)(C)O",
-        "example_rxn_reactants": ["CC(C)(C)C1(O)OC1(C)C", "FCCC(O)"],
-        "functional_groups": ["Epoxide_clickchem", "Alcohol_clickchem"],
-        "group_smarts": ["[CR1;H2,H1X4,H0X4]1O[CR1;H2,H1X4,H0X4]1", "[#6&$([CR0,R1X3,R1X4])&!$([#6](=,-[OR0,SR0])[OR0])]-[OR0;H1,-]"],
-        "num_reactants": 2,
-        "reaction_string": "[CR1;H2,H1X4,H0X4:1]1O[CR1;H2,H1X4,H0X4:2]1.[#6&$([CR0,R1X3,R1X4])&!$([#6](=,-[OR0,SR0])[OR0]):3]-[OR0;H1,-]>>O[C:1][C:2]O-[#6:3]",
-        "RXN_NUM": 1
-        },
-    "2_Epoxide_and_Thiol":     {
-        "reaction_name": "2_Epoxide_and_Thiol",
-        "example_rxn_product": "CC(C)(C)C(O)(SCCC(=O)OC(=O)[O-])C(C)(C)O",
-        "example_rxn_reactants": ["CC(C)(C)C1(O)OC1(C)C", "O=C([O-])OC(=O)CCS"],
-        "functional_groups": ["Epoxide_clickchem", "Thiol_1R_clickchem"],
-        "group_smarts": ["[CR1;H2,H1X4,H0X4]1O[CR1;H2,H1X4,H0X4]1", "[#6&$([CR0,R1X3,R1X4])&!$([#6](=,-[OR0,SR0])[SR0])]-[SR0;H1,-]"],
-        "num_reactants": 2,
-        "reaction_string": "[CR1;H2,H1X4,H0X4:1]1O[CR1;H2,H1X4,H0X4:2]1.[#6&$([CR0,R1X3,R1X4])&!$([#6](=,-[OR0,SR0])[SR0]):3]-[SR0;H1,-]>>O[C:1][C:2]S-[#6:3]",
-        "RXN_NUM": 2
-        },
-    "3_Alkene_Oxidized_To_Epoxide":     {
-        "reaction_name": "3_Alkene_Oxidized_To_Epoxide",
-        "example_rxn_product": "CNC1(C)OC1(O)Br",
-        "example_rxn_reactants": ["BrC(O)=C(C)NC"],
-        "functional_groups": ["Alkene_clickchem"],
-        "group_smarts": ["[CR0;X3,X2H1,X1H2]=[CR0;X3,X2H1,X1H2]"],
-        "num_reactants": 1,
-        "reaction_string": "[CR0;X3,X2H1,X1H2:1]=[CR0;X3,X2H1,X1H2:2]>>[C:1]1O[C:2]1",
-        "RXN_NUM": 3
-        },
-    ...,
-}
-```
-
-PLEASE SEE THE EXAMPLE REACTION LIBRARIES FOUND AT:
-
-- `/SMILESMerge/smilesmerge/operators/mutation/smiles_click_chem/reaction_libraries/all_rxns/All_Rxns_rxn_library.json`
-- `/SMILESMerge/smilesmerge/operators/mutation/smiles_click_chem/reaction_libraries/click_chem_rxns/click_chem_rxns_library.json`
-- `/SMILESMerge/smilesmerge/operators/mutation/smiles_click_chem/reaction_libraries/robust_rxns/Robust_Rxns_rxn_library.json`
-
-Reaction libraries identify ligands capable of participating in a given
-reaction using the information found in the sub-dictionary's items
-"functional_groups" and "group_smarts".
-
-##### Functional Group Library .json File Simple JSON Dictionary Containing Each Functional Group and Its Smarts Definition
-
-Functional group libraries are simple dictionaries of the functional groups
-used by a reaction library. Every moiety used by the reaction library must
-have an entry in the functional group library.
-
-Functional group libraries are formatted as such: (From
-`click_chem_functional_groups.json`):
-
-```json
-{
-    "Acid_Anhydride_Noncyclic_clickchem": "[*]C(=O)-[O;R0]-C(=O)[*]",
-    "Alcohol_clickchem": "[#6&$([CR0,R1X3,R1X4])&!$([#6](=,-[OR0,SR0])[OR0])]-[OR0;H1,-]",
-    "Alkene_clickchem": "[CR0;X3,X2H1,X1H2]=[CR0;X3,X2H1,X1H2]",
-    "Alkyne_clickchem": "[CR0;X2,X1H1]#[CR0;X2,X1H1]",
-    "Amine_2R_clickchem":  "[#7;$([#7;H3+,H2R0X1]-[#6]),$([#7&!H3;H1R1X3](:,-[#6R1]):,-[#6R1,#7R1]),$([#7&!H3;H2]-[#6]),$([#7&!H3;H0R1X2](:,-[#6R1;X3H1]):,-[#6R1X3H1]),$([#7&!H3;H0R1X2](:,-[#6R1;X3]):,-[#7R1X3]),$([#7&!H3;H1R0X3](-[#6])-[#6R0])]",
-    "Azide_1R_clickchem": "[*;#6]-[$(N=[N+]=[N-]),$([N-][N+]#N)]",
-    "Carbonochloridate_clickchem": "Cl[C;X3](=O)-O[*]",
-    "Carboxylate_clickchem": "[*;!O]-[$([CR0;X3](=[OR0&D1])[OR0&H1]),$([CR0;X3](=[OR0&D1])[OR0-])]",
-    "Epoxide_clickchem": "[CR1;H2,H1X4,H0X4]1O[CR1;H2,H1X4,H0X4]1",
-    "Ester_clickchem": "[*;#6]C(=O)-O[*]",
-    "Halide_clickchem": "[Cl,Br,I][$([CX4,c]),$([#6X3]=[O,S])]",
-    "Isocyanate_clickchem": "[#6]N=C=O",
-    "Isothiocyanate_clickchem": "[#6]N=C=S",
-    "Primary_Amine_1R_clickchem": "[#7;$([H3+]),$([H2R0;!+])]-[#6]",
-    "Sulfonyl_Azide_clickchem": "[*]S(=O)(=O)-[$(N=[N+]=[N-]),$([N-][N+]#N)]",
-    "Thio_Acid_clickchem": "[C]-[$([CX3R0]([S;H1,X1])=[OX1]),$([CX3R0]([O;H1,X1])=[SX1])]",
-    "Thiol_1R_clickchem": "[#6&$([CR0,R1X3,R1X4])&!$([#6](=,-[OR0,SR0])[SR0])]-[SR0;H1,-]"
-}
-```
-
-Examples can be found here:
-
-- `/SMILESMerge/smilesmerge/operators/mutation/smiles_click_chem/reaction_libraries/all_rxns/All_Rxns_functional_groups.json`
-- `/SMILESMerge/smilesmerge/operators/mutation/smiles_click_chem/reaction_libraries/click_chem_rxns/click_chem_functional_groups.json`
-- `/SMILESMerge/smilesmerge/operators/mutation/smiles_click_chem/reaction_libraries/robust_rxns/Robust_Rxns_functional_groups.json`
-
-The SMARTS strings provided in this file should also be present in each
-sub-dictionary of the Reaction library .json file that references that
-functional group, placing the name of the group in the list of functional
-group names of reactants found under sub-dictionary key "functional_groups" and
-placing the SMARTS string of the group in the list of functional group SMARTS
-of reactants found under sub-dictionary key "group_smarts"
-
-##### Directory of Complementary Molecule Libraries, Directory of .smi Files
-
-Any reaction containing more than one reactant will require a complementary
-molecule to supplement the reaction.
-
-For this reason we require a directory populated with .smi files containing
-small molecules that match each functional group.
-
-The name of each .smi file should be the name of the functional group (the
-keys of the functional-group-library .json file) +.smi
-
-Example: The .smi file for the functional group
-"Acid_Anhydride_Noncyclic_clickchem" should be
-`/PATH_TO/complementary_mol_directory/Acid_Anhydride_Noncyclic_clickchem.smi`
-
-THERE MUST BE ONE ENTRY PER FUNCTIONAL GROUP. BECAUSE NAMES ARE CAP SENSITIVE
-IN SOME OS AND NOT IN OTHERS, PLEASE CHECK THAT YOUR NAME IS UNIQUE
-INDEPENDENT OF CAPS.
-
-#### Important Formatting Notes About the .smi File for complementary_mol_directory
-
-1. No headers are allowed in the file.
-2. .smi files can be either tab or 4-space delineated.
-3. The only columns are the 1st two columns.
-   - Column 1: SMILES string
-   - Column 2: ligand name/identifier (1 WORD, NO SPACES)
-
-We strongly recommend thoroughly checking that each molecule in each library
-matches the intended functional group. If a ligand does not match the intended
-functional group the reaction will fail and it will slow the process of mutant
-creation.
-
-#### Running Custom Reactions
-
-Running a custom reaction library requires 4 parameters to be set:
-
-1. `rxn_library`
-2. `rxn_library_file`
-3. `function_group_library`
-4. `complementary_mol_directory`
-
-Submission through .json format:
-
-- Where JSON is located at `/PATH_TO/To/json_file_with_variable.json`
-- Where reaction library JSON file is located at
-  `/PATH_TO/rxn_library_file.json`
-- Where function group JSON file is located at
-  `/PATH_TO/function_group_library.json`
-- Where directory of SMI for complementary libraries is located at
-  `/PATH_TO/complementary_mol_directory/`
-
-```json
-{
-    ...
-    "rxn_library": "Custom",
-    "rxn_library_file": "/PATH_TO/rxn_library_file.json",
-    "function_group_library": "/PATH_TO/function_group_library.json",
-    "complementary_mol_directory": "/PATH_TO/complementary_mol_directory/",
-}
-```
-
-Submit via terminal: `python RunSMILESMerge.py -j
-/PATH_TO/json_file_with_variable.json`
-
-Command-line submission format:
-
-- Where reaction library JSON file is located at:
-  `/PATH_TO/rxn_library_file.json`
-- Where function group JSON file is located at:
-  `/PATH_TO/function_group_library.json`
-- Where directory of SMI for complementary libraries is located at:
-  `/PATH_TO/complementary_mol_directory/`
-
-```bash
-python RunSMILESMerge.py \
-    ... \
-    --rxn_library Custom \
-    --rxn_library_file /PATH_TO/rxn_library_file.json \
-    --function_group_library /PATH_TO/function_group_library.json \
-    --complementary_mol_directory /PATH_TO/complementary_mol_directory/
-```
-
-### 3. Custom Complementary Molecule libraries
-
-One can provide custom libraries of molecules (to supplement reactions) using
-the `--complementary_mol_directory` option.
-
-This can be used in conjunction with any of the predefined reactions sets
-(i.e., `click_chem_rxns`, `robust_rxns`, `all_rxns`), but this requires that
-all functional groups used by those reaction libraries have a corresponding
-.smi file in the custom `complementary_mol_directory`
-
-We strongly recommend thoroughly checking that each molecule in each library
-matches the intended functional group. If a ligand does not match the intended
-functional group the reaction will fail and it will slow the process of mutant
-creation.
-
-We provide a script to check complementary molecule libraries at
-`/SMILESMerge/accessory_scripts/test_complementary_mol_library.py`
-
-A tutorial is provided in the Accessory Scripts section of this document.
-
-THERE MUST BE ONE ENTRY PER FUNCTIONAL GROUP. BECAUSE NAMES ARE CAP SENSITIVE
-IN SOME OS'S AND NOT IN OTHERS, PLEASE CHECK THAT YOUR NAME IS UNIQUE
-INDEPENDENT OF CAPS.
-
-#### Important Formatting Notes About the .smi File for complementary_mol_directory
-
-1. No headers are allowed in the file.
-2. .smi files can be either tab or 4-space delineated.
-3. The only columns are the 1st two columns.
-   - Column 1: SMILES string
-   - Column 2: ligand name/identifier (1 WORD, NO SPACES)
-
-#### Running Custom Reactions
-
-Submission through .json format:
-
-- Where JSON is located at: `/PATH_TO/To/json_file_with_variable.json`
-- Where directory of SMI for complementary libraries is located at:
-  `/PATH_TO/complementary_mol_directory/`
-
-```json
-{
-    ...
-    "complementary_mol_directory": "/PATH_TO/complementary_mol_directory/",
-}
-```
-
-Submit via terminal: `python RunSMILESMerge.py -j
-/PATH_TO/json_file_with_variable.json`
-
-Command- line submission format, where directory of SMI for complementary
-libraries is located at: `/PATH_TO/complementary_mol_directory/`
-
-```bash
-python RunSMILESMerge.py \
-    ... \
-    --complementary_mol_directory /PATH_TO/complementary_mol_directory/
-```
 
 ## Other Factors for Consideration Prior to Running SMILESMerge
 
@@ -881,49 +594,6 @@ python /SMILESMerge/accessory_scripts/fragmenter_of_smi_mol.py \
     -smi_file /PATH_TO/OF/SMILES.smi
 ```
 
-### Preparing Custom Reaction Libraries Pre-Run
-
-#### /SMILESMerge/accessory_scripts/test_complementary_mol_library.py
-
-This script will test a complementary molecule library to ensure all compounds
-react in all reactions they may be used in.
-
-We recommend running this test if creating custom complementary libraries or
-reaction libraries.
-
-This script takes 5 input arguments:
-
-1. `--rxn_library_file` str: Required. This PATH to a Custom json file of SMARTS
-   reactions to use for Mutation.
-2. `--function_group_library` str: Required. type=strThis PATH for a dictionary
-   of functional groups to be used for Mutation.
-3. `--complementary_mol_directory` str: Required.  This PATH to the directory
-   containing all the molecules being used to react with. The directory should
-   contain .smi files contain SMILES of molecules containing the functional
-   group represented by that file. Each file should be named with the same
-   title as the functional groups described in rxn_library_file &
-   function_group_library +.smi All functional groups specified
-   function_group_library must have its own .smi file. We recommend you filter
-   these dictionaries prior to SMILESMerge for the Drug-likeliness and size
-   filters you will Run SMILESMerge with.
-4. `--output_folder` str: Required. This PATH to where filtered .smi file and
-   log files will be placed. Will save a file in this directory for mols which
-   failed sanitization, mols which failed to react in specific reactions, and
-   .smi files that contain all mols that reacted properly.
-5. `--number_of_processors` int (-p). Number of processors to use for parallel
-   calculations. This script is not MPI enable but is able to multithread
-   using SMP architecture. Set to -1 for all available CPUs.
-
-Example submit:
-
-```bash
-python /SMILESMerge/accessory_scripts/test_complementary_mol_library.py \
-    --rxn_library_file /SMILESMerge/smilesmerge/operators/mutation/smiles_click_chem/reaction_libraries/click_chem_rxns/ClickChem_rxn_library.json \
-    --function_group_library /SMILESMerge/smilesmerge/operators/mutation/smiles_click_chem/reaction_libraries/click_chem_rxns/ClickChem_functional_groups.json \
-    --complementary_mol_directory /SMILESMerge/smilesmerge/operators/mutation/smiles_click_chem/reaction_libraries/click_chem_rxns/complementary_mol_dir \
-    --output_folder /SMILESMerge/accessory_scripts/output/
-```
-
 ### Graph Generation For Post-Run Analysis
 
 #### /SMILESMerge/accessory_scripts/make_lineage_figures.py
@@ -948,16 +618,11 @@ figures.
     will simply compile the necessary dictionaries/picklefiles and then
     terminate. These pickle files are stored in the input folder containing
     the vars.json file from the SMILESMerge run. Example mol_name:
-    `Gen_5_Cross_203131 or Gen_4_Mutant_7_802531`. Can also be provided as
-    full-name ie: (`Gen_2_Mutant_7_97143`)`Gen_4_Mutant_7_802531`
-4. `--complementary_mol_directory` str. If using a custom complementary molecule
-    library for mutations this path is required. If not the script will try to
-    autodetect the location of the predefined complementary_mol_directory.
-    Many molecules generated by mutation will required the complementary
-    molecule that helped spawn them.
-5. `--source_compound_file` str: Required. This is the source .smi file used to
+    `Gen_1_Cross_539621` or `Gen_1_Cross_539621__1`. Can also be provided as
+    full-name ie: `(naphthalene_45+naphthalene_90)Gen_1_Cross_539621`
+4. `--source_compound_file` str: Required. This is the source .smi file used to
     seed generation zero of the SMILESMerge run. This is an essential file.
-6. `--pre_run` bool. If True this will compile the necessary
+5. `--pre_run` bool. If True this will compile the necessary
     dictionaries/picklefiles and then terminate. These pickle files are stored
     in the input folder containing the vars.json file from the SMILESMerge run.
 

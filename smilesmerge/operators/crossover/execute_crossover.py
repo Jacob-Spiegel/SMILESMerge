@@ -181,7 +181,7 @@ def make_crossovers(vars, generation_num, number_of_processors,
     """
     Make crossover compounds in a list to be returned.
 
-    This runs SmileClick and returns a list of new molecules.
+    This runs SmileMerge and returns a list of new molecules.
 
     Inputs:
     :param dict vars: User variables which will govern how the programs runs

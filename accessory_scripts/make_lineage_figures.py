@@ -463,13 +463,6 @@ def merge_comp_and_ranked_dicts(vars):
     ranked_mol_dict_pickle = vars["ranked_mol_dict_pickle"]
 
     master_mol_dict = {}
-    #@JAKE_CLICKCHEM
-    # comp_dict_pickle = vars["comp_dict_pickle"]
-
-    # comp_mol_dict = get_obj_from_pickle_file(comp_dict_pickle)
-
-    # master_mol_dict = copy.deepcopy(comp_mol_dict)
-    # del comp_mol_dict
     
     ranked_mol_dict = get_obj_from_pickle_file(ranked_mol_dict_pickle)
     # Since there shouldn't be docking information in the comp_mol_dict
@@ -488,43 +481,6 @@ def merge_comp_and_ranked_dicts(vars):
     return master_mol_dict
 #
 
-# @JAKE_CLICKCHEM
-# def make_comp_mol_dict(vars):
-#     """
-#     Create and pickled dictionary of all complementary molecules.
-
-#     These mol_dicts can be quite large and memory intensive so we will create
-#     and save as pickle. And reopen later to minimize memory overhead.
-
-#     Inputs:
-#     :param dict vars: dictionary of variable to use
-#     """
-#     # Add complementary mols from reactions
-#     # Only valid for autoclickchem rxns
-
-#     comp_smi_list = glob.glob(vars["complementary_mol_directory"] + os.sep + "*.smi")
-#     if len(comp_smi_list) == 0:
-#         raise Exception("No .smi files found for complementary_mol_directory.\n" + \
-#             "please check: {}".format(vars["complementary_mol_directory"]))
-#     comp_dict = {}
-#     for smi in comp_smi_list:
-#         comp_mol_list = get_usable_format(smi)
-#         for mol_entry in comp_mol_list:
-#             comp_dict[mol_entry[1]] = mol_entry[0]
-#         del comp_mol_list
-#     del comp_smi_list
-
-#     #Make this match those with scores
-#     for mol_name in comp_dict.keys():
-#         mol = Chem.MolFromSmiles(comp_dict[mol_name])
-#         temp_info = [comp_dict[mol_name], mol_name, mol_name, mol_name, None, None, mol]
-
-#         comp_dict[mol_name] = temp_info
-
-#     comp_dict_pickle = vars["comp_dict_pickle"]
-#     write_pickle_to_file(comp_dict_pickle, comp_dict)
-#     del comp_dict
-# #
 def make_ranked_files_mol_dict(vars):
     """
     Create and pickle dictionary of all ranked ligands.
@@ -652,14 +608,6 @@ def get_mol_dict(vars):
             # Will reopen later to minimize memory overhead
             print("Creating ranked_files_mol_dict")
             make_ranked_files_mol_dict(vars)
-
-        # @JAKE_CLICKCHEM
-        # # Handle complementary molecules
-        # if os.path.exists(comp_dict_pickle) is False:
-        #     # comp_dict_pickle does not exist. Need to make and pickle
-        #     # Will reopen later to minimize memory overhead
-        #     print("Creating comp_mol_dict")
-        #     make_comp_mol_dict(vars)
 
         # merge molecule dictionaries together to create a master dictionary
         print("Creating master_mol_dict")
@@ -822,59 +770,6 @@ def process_inputs(inputs):
         raise Exception("variable file would not import. It should be the \
             vars.json file written by AutoGrow in the output folder of the run.")
     
-    # @JAKE_CLICKCHEM
-    # if inputs["complementary_mol_directory"] in ["", None]:
-
-    #     # Get complementary_mol_directory from vars.json
-    #     if vars_dict["complementary_mol_directory"] not in ["", None]:
-    #         if os.path.exists(vars_dict["complementary_mol_directory"]):
-    #             inputs["complementary_mol_directory"] = vars_dict["complementary_mol_directory"]
-    #         else:
-    #             # Can not find the one used in vars.json list
-    #             raise Exception("Please provide path to complementary_mol_directory. \
-    #                 vars.json file lists custom path to complementary_mol_director={} \
-    #                 but this directory can not be found. Please provide path using \
-    #                 --complementary_mol_directory $PATH/TO/complementary_mol_directory/")
-
-    #     # Get complementary_mol_directory from vars.json
-    #     elif vars_dict["rxn_library"].lower() in ["click_chem_rxns", "robust_rxns", "all_rxns"]:
-    #         dir_above_script_dir = str(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
-
-    #         complementary_mol_directory = str(os.sep).join([
-    #             dir_above_script_dir, "autogrow", "operators", "mutation",
-    #             "smiles_click_chem", "reaction_libraries",
-    #             vars_dict["rxn_library"].lower(), "complementary_mol_dir"])
-
-    #         complementary_mol_directory = os.path.abspath(complementary_mol_directory)
-    #         if os.path.exists(complementary_mol_directory) is False:
-    #             raise Exception("Please provide path to complementary_mol_directory. \
-    #                 Could not find the location of the directory")
-
-    #         inputs["complementary_mol_directory"] = complementary_mol_directory + os.sep
-    #     else:
-    #         raise Exception("Please provide path to complementary_mol_directory. \
-    #             Could not find the location of the directory")
-    # else: # complementary_mol_directory was provided.
-    #     inputs["complementary_mol_directory"] = \
-    #         os.path.abspath(inputs["complementary_mol_directory"]) + os.sep
-
-    #     if os.path.exists(inputs["complementary_mol_directory"]) is False:
-    #         # Can not find the one used in vars.json list
-    #         raise Exception("Please provide path to complementary_mol_directory. \
-    #             provided path could not be found " \
-    #                 + ":\n\t{}".format(inputs["complementary_mol_directory"]))
-
-
-    #     if len(glob.glob(inputs["complementary_mol_directory"] + "*.smi")) == 0:
-    #         sub_dir = inputs["complementary_mol_directory"] + os.sep \
-    #             + "complementary_mol_dir" + os.sep
-    #         if len(glob.glob(sub_dir + "*.smi")) == 0:
-    #             raise Exception("Please provide path to complementary_mol_directory. " \
-    #                 + "provided path had no .smi files: " \
-    #                 + "\n\t{}".format(inputs["complementary_mol_directory"]))
-    #         # They provided 1 directory up...
-    #         inputs["complementary_mol_directory"] = sub_dir
-
     # Handle output directory
     inputs["output_dir"] = os.path.abspath(inputs["output_dir"]) + os.sep
     if os.path.exists(inputs["output_dir"]) is False:
@@ -1011,17 +906,6 @@ PARSER.add_argument(
         top folder which contains the vars.json file.",
 )
 
-# @JAKE_CLICKCHEM
-# PARSER.add_argument(
-#     "--complementary_mol_directory",
-#     metavar="param.complementary_mol_directory",
-#     required=False,
-#     default="",
-#     help="If using a custom complementary molecule library for mutations this \
-#     path is required. If not the script will try to autodetect the location of \
-#     the predefined complementary_mol_directory. Many molecules generated by \
-#     mutation will required the complementary molecule that helped spawn them.",
-# )
 PARSER.add_argument(
     "--source_compound_file",
     metavar="param.source_compound_file",
