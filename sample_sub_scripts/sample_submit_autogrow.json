@@ -7,5 +7,5 @@
     "max_variants_per_compound": 3,
     "filter_source_compounds": false,
     "No_Filters": true,
-    "gypsum_timeout_limit": 10
+    "gypsum_timeout_limit": 30
 }
