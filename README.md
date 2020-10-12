@@ -4,7 +4,7 @@ SMILESMerge is a cheminformatic, Python program for that crosses two parent liga
 
 SMILESMerge accepts a list of SMILES (in .smi format) and will attempt to produce a user defined number of unique children SMILES. SMILESMerge also allows users to apply chemical property filters. Additionally, SMILESMerge options the automated conversion of the children from 1/2D SMILES to 3D representations (PDB and 3D-SDF) using Gypsum-DL.
 
-![Image of crossover](https://github.com/Jacob-Spiegel/SMILESMerge/Figures/crossover.png)
+![Image of crossover](https://github.com/Jacob-Spiegel/SMILESMerge/blob/main/Figures/crossover.png)
 
 # Acknowledgment and Citing
 
