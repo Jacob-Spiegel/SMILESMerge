@@ -7,7 +7,6 @@ import os
 def get_folders():
 
     script_dir = str(os.path.dirname(os.path.realpath(__file__)))
-                
 
     folders_all_list = [x for x in glob.glob(script_dir+"/*/") if os.path.isdir(x) is True]
     bottom_dir = False
@@ -18,13 +17,13 @@ def get_folders():
         for folder in new_folders:
             sub_list = [x for x in glob.glob(folder+"/*/") if os.path.isdir(x) is True]
             temp.extend(sub_list)
-        
+
         folders_all_list.extend(temp)
         folders_all_list=list(set(folders_all_list))
         if len(temp) == 0:
             bottom_dir = True
             break
-        
+
         else:
             new_folders = copy.deepcopy(temp)
 
@@ -52,7 +51,7 @@ files_to_del = []
 for folder in folders_all_list:
     temp_file_list = [x for x in glob.glob(folder+"/*.pyc")]
     for file_del in temp_file_list:
-            
+
         if ".pyc" in file_del:
             to_del_folder.append(file_del)
             os.system("rm {}".format(file_del))

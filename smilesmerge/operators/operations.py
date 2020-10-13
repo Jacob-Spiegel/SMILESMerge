@@ -236,7 +236,7 @@ def populate_generation(vars):
 
 def get_list_of_3D_SMILES(vars, new_generation_smiles_list):
     """
-    This will obtain and save the list of SMILES in the same order as 
+    This will obtain and save the list of SMILES in the same order as
     found in NEW_SMILES.smi but with 3D variant information from PDBS.
 
     Will save to vars["output_directory"] +  "New_SMILES_After_3D_Conversion.smi"

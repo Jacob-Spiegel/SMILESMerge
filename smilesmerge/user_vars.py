@@ -961,7 +961,7 @@ def make_complete_children_dict(purpose_of_object):
     """
     This will retrieve all the names of every child class of the parent class
     This can be  filter class
-    
+
     Inputs:
     :param str purpose_of_object: the filter
     Returns:

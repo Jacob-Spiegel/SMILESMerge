@@ -13,7 +13,7 @@ cd gypsum_dl/
 pwd
 git status
 echo ""
- 
+
 git pull
 git fetch
 git pull

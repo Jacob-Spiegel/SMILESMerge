@@ -31,8 +31,8 @@ ZINC molecules:
     We then separated the compounds into populations of functional group libraries for the click_chem_rxns
     and robust_rxns.
 
-    We then randomly selected 100 compounds per functional group for each of the MW ranges... 
-    If a functional group did not have 100 compounds within a given MW range, we added however many compounds 
+    We then randomly selected 100 compounds per functional group for each of the MW ranges...
+    If a functional group did not have 100 compounds within a given MW range, we added however many compounds
     within that range. This approach ensured that every compound would be able to react when using the all_rxns
     library and that there would be a diverse set of starting compounds at a varied MW. Redundant compounds
     were removed to a single entry.
@@ -44,7 +44,7 @@ ZINC molecules:
         4) 200da > MW >=250da   :  autogrow4/source_compounds/Fragment_MW_200_to_250.smi
 
     The total number of different ZINC15 molecules in these four files is 24,595 compounds.
-    
+
     These compounds were derived from a subset of the ZINC database (https://zinc.docking.org/).
-    We thank ZINC for allowing us to distribute these fragment 
+    We thank ZINC for allowing us to distribute these fragment
     libraries to AutoGrow users.

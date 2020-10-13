@@ -6,9 +6,7 @@ Runs plotting at end.
 import __future__
 
 import os
-import glob
 import sys
-import shutil
 
 import smilesmerge.operators.operations as operations
 
@@ -29,7 +27,7 @@ def main_execute(vars):
     # 1)  generate new ligands
     # 2) optionally filter ligands
     # 3) optionally convert from 1D smiles to 3D (mol2/PDB)
-    
+
     sys.stdout.flush()
 
 

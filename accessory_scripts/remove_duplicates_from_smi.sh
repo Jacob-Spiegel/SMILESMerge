@@ -1,8 +1,8 @@
 #!/bin/bash
 """
 This script will take a file path to a tab-delineated
-.smi file. It will then filter it for redundancies in the 
-1st and 2nd columns of the file. 
+.smi file. It will then filter it for redundancies in the
+1st and 2nd columns of the file.
 The output file is the input file + '_no_dup.smi'
 """
 

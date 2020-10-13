@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # This script is an example for running SMILESMerge within a docker.
-# To modify the protein, pocket dimensions, and GA paremeters... please 
+# To modify the protein, pocket dimensions, and GA paremeters... please
 # create a JSON file with the desired user variables.
 # An example JSON is provided at: /SMILESMerge/docker/examples/sample_submit_SMILESMerge_docker.json
 
