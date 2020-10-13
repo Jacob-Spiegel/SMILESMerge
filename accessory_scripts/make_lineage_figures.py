@@ -9,7 +9,6 @@ take longer than future runs.
 """
 import os
 import sys
-import glob
 import argparse
 import json
 import copy
