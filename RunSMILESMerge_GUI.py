@@ -33,6 +33,12 @@ except:
 # @Gooey
 @Gooey(advanced=True)
 def run_parser():
+    """
+    This will obtain user parameters in a Gooey GUI
+
+    Returns:
+    :returns: dict ARGS_DICT: dictionary of user variables
+    """
     PARSER = argparse.ArgumentParser()
 
     # Allows the run commands to be submitted via a .json file.
@@ -115,7 +121,8 @@ def run_parser():
         type=int,
         metavar="N",
         default=1,
-        help="Number of processors to use for parallel calculations. Set to -1 for all available CPUs.",
+        help="Number of processors to use for parallel calculations. \
+        Set to -1 for all available CPUs.",
     )
     PARSER.add_argument(
         "--multithread_mode",
