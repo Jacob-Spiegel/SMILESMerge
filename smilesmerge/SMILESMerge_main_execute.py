@@ -18,11 +18,6 @@ def main_execute(vars):
     :param dict vars: dict of user variables which will govern how the
         programs runs
     """
-
-    # Unpack necessary variables
-    # output_directory is the root output folder for the run
-    output_directory = vars["output_directory"]
-
     # This will run operations which will:
     # 1)  generate new ligands
     # 2) optionally filter ligands

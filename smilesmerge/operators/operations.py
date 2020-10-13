@@ -252,9 +252,9 @@ def get_list_of_3D_SMILES(vars, new_generation_smiles_list):
         pdb_files = glob.glob(PDBs_dir + short_id + "__*.pdb")
         pdb_files.sort()
         for pdb_pose in pdb_files:
-            base_info = os.path.basename(pdb_pose).replace(".pdb","")
+            base_info = os.path.basename(pdb_pose).replace(".pdb", "")
             with open(pdb_pose) as f:
-                SMILES_string = f.readline().replace("\n","")
+                SMILES_string = f.readline().replace("\n", "")
                 SMILES_string = SMILES_string.replace("REMARK Final SMILES string: ", "")
             list_of_3D_SMILES.append("\t".join([SMILES_string, mol_info[1], base_info]))
 

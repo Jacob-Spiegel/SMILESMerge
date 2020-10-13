@@ -87,7 +87,7 @@ def change_permissions_recursively(file_or_folder_path):
             directory_path_list = []
             file_list = []
             for top_dir, dir_list, list_of_files in os.walk(
-                file_or_folder_path, topdown=False
+                    file_or_folder_path, topdown=False
             ):
                 for directory in [os.path.join(top_dir, d) for d in dir_list]:
                     directory_path_list.append(directory)
@@ -279,7 +279,8 @@ def check_for_required_inputs(json_vars):
         + os.sep + "inputs" + os.sep
         + os.path.basename(json_vars["source_compound_file"]),
     )
-    json_vars["source_compound_file"] = "/Outputfolder/inputs/" + os.path.basename(json_vars["source_compound_file"])
+    json_vars["source_compound_file"] = "/Outputfolder/inputs/" + \
+            os.path.basename(json_vars["source_compound_file"])
 
     return json_vars
 
@@ -452,10 +453,10 @@ def move_files_to_temp_dir(json_vars):
 
     # Copy all files in SMILESMerge directory into a temp except the Docker folder
     for fol_to_copy in [
-        "smilesmerge",
-        "source_compounds",
-        "accessory_scripts",
-        "tutorial",
+            "smilesmerge",
+            "source_compounds",
+            "accessory_scripts",
+            "tutorial",
     ]:
         shutil.copytree(
             smilesmerge_top_dir + fol_to_copy, temp_smilesmerge_path + fol_to_copy

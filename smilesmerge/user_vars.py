@@ -11,7 +11,6 @@ import copy
 import datetime
 import json
 import sys
-import platform
 from shutil import copyfile
 
 
@@ -415,10 +414,6 @@ def define_defaults():
     """
 
     vars = {}
-
-    # where we are currently (absolute filepath from route)
-    # used for relative pathings
-    script_dir = os.path.dirname(os.path.realpath(__file__))
 
     # Crossover function
     vars["max_time_mcs_prescreen"] = 1
