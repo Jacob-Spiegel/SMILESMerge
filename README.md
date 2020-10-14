@@ -50,11 +50,16 @@ Much of this code is take directly and/or adapted from AutoGrow4. This program a
 
 ## SMILESMerge Citation:
 
-- Citation Pending
+- Spiegel, J.O. SMILESMerge: an open-source program for automated de novo ligand design using a crossover method. (2020)
+
+## GlauconiteFilter Citation:
+
+- Spiegel, J.O. GlauconiteFilter: an open-source program for automated ADME-PK filtering. (2020) https://doi.org/10.5281/zenodo.4087648
+[![DOI](https://zenodo.org/badge/303535253.svg)](https://zenodo.org/badge/latestdoi/303535253)
 
 ## AutoGrow4 Citation:
 
-- Spiegel, J.O., Durrant, J.D. AutoGrow4: an open-source genetic algorithm for de novo drug design and lead optimization. J Cheminform 12, 25 (2020). [doi: 10.1186/s13321-020-00429-4]
+- Spiegel, J.O., Durrant, J.D. AutoGrow4: an open-source genetic algorithm for de novo drug design and lead optimization. J Cheminform 12, 25 (2020). https://doi.org/10.1186/s13321-020-00429-4
 
 ## Gypsum-DL Citation:
 
