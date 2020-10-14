@@ -56,17 +56,6 @@ A modern installation of bash is required to run SMILESMerge. SMILESMerge has be
 tested using GNU bash, version 4.4.19. macOS and Linux come with Bash
 preinstalled.
 
-### Coreutils (Required For macOS)
-
-Most Linux operating systems include the `timeout` tool (part of the
-`coreutils` package) that SMILESMerge requires. Use on macOS requires the
-separate installation of the `coreutils` package, available through
-`homebrew`, which provides the equivalent `gtimeout` binary.
-
-```bash
-sudo brew install coreutils
-```
-
 ### Python Installation (Required)
 
 SMILESMerge is primarily written in python. A modern version of python can be
