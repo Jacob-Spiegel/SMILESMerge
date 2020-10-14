@@ -1,4 +1,5 @@
 # SMILESMerge
+[![DOI](https://zenodo.org/badge/303231133.svg)](https://zenodo.org/badge/latestdoi/303231133)
 
 SMILESMerge is a cheminformatic, Python program that crosses two parent ligands (SMILES string) to create a child compound. SMILESMerge uses the crossover algorithm from the program AutoGrow4.
 
@@ -50,7 +51,8 @@ Much of this code is take directly and/or adapted from AutoGrow4. This program a
 
 ## SMILESMerge Citation:
 
-- Spiegel, J.O. SMILESMerge: an open-source program for automated de novo ligand design using a crossover method. (2020)
+- Spiegel, J.O. SMILESMerge: an open-source program for automated de novo ligand design using a crossover method. (2020) https://doi.org/10.5281/zenodo.4087708
+[![DOI](https://zenodo.org/badge/303231133.svg)](https://zenodo.org/badge/latestdoi/303231133)
 
 ## GlauconiteFilter Citation:
 
