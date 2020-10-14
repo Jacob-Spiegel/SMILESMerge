@@ -427,7 +427,6 @@ def define_defaults():
 
     # Populations settings
     vars["filter_source_compounds"] = True
-    vars["num_generations"] = 1
     vars["number_of_crossovers"] = 10
 
     # Filters
