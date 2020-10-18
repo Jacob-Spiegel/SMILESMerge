@@ -47,7 +47,7 @@ SMILESMerge was tested on a Python 3.7.7 environment on a Ubuntu OS. A docker im
 
 # Acknowledgment and Citing
 
-Much of this code is take directly and/or adapted from AutoGrow4. This program also relies on Gypsum-DL and Dimorphite-DL for ligand handling and multiprocessing. Please remember to cite the following papers:
+Much of this code is take directly and/or adapted from AutoGrow4 and GlauconiteFilter. This program also relies on Gypsum-DL and Dimorphite-DL for ligand handling and multiprocessing. Please remember to cite the following papers:
 
 ## SMILESMerge Citation:
 
