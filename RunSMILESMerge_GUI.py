@@ -6,6 +6,14 @@ pass these parameters variables to the main execution function titled
 SMILESMergeMainExecute.py found in MainFunctions
 
 If you use SMILESMerge in your research, please cite the following reference:
+Spiegel, J.O., Durrant, J.D., SMILESMerge: an open-source program for
+automated de novo ligand design using a crossover method. (2020)
+[doi: 10.5281/zenodo.4087707]
+
+Spiegel, J.O., Durrant, J.D., GlauconiteFilter: an open-source program 
+for automated ADME-PK filtering. (2020) 
+[doi: 10.5281/zenodo.4087647]
+
 Spiegel, J.O., Durrant, J.D. AutoGrow4: an open-source genetic algorithm
 for de novo drug design and lead optimization. J Cheminform 12, 25 (2020).
 [doi: 10.1186/s13321-020-00429-4]
