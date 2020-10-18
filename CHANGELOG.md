@@ -7,8 +7,8 @@ Changes
 * Updated `$PATH/SMILESMerge/RunSMILESMerge.py` with minor updates and citations.
 * Updated `$PATH/SMILESMerge/RunSMILESMerge_GUI.py` with minor updates and citations.
 * Updated `$PATH/SMILESMerge/SMILESMerge/user_vars.py` with minor updates and citations.
-* Updated `$PATH/autogrow4/README.md` with minor updates and citations.
-* Added `$PATH/autogrow4/CHANGELOG.md`.
+* Updated `$PATH/SMILESMerge/README.md` with minor updates and citations.
+* Added `$PATH/SMILESMerge/CHANGELOG.md`.
 
 1.0.0
 -----
